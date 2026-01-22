@@ -1,0 +1,1 @@
+{"2fb95e708d7d18464074996dc1b3a424":{"statistic":{"failed":0,"broken":1,"skipped":0,"passed":0,"unknown":0,"total":1},"items":[{"uid":"e0db0ded7a452d1e","status":"broken","statusDetails":"ValueError: Unsupported type: <class 'method'>","time":{"start":1765594667618,"stop":1765594668432,"duration":814}}]}}
