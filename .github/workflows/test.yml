@@ -21,6 +21,6 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: run tests
-        run: pytest ./TestCase/ -v
+        run: python run.py -v
 
 
