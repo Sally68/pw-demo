@@ -6,21 +6,43 @@ on:
   workflow_dispatch:
 
 
+#jobs:
+#  test:
+#    runs-on: ubuntu-24.04
+#    container: astral/uv:python3.12-bookworm-slim
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#      - name: Set up Python
+#        uses: actions/setup-python@v5
+#        with:
+#         Python-version: '3.10'
+#      - name: Install independency
+#        run: pip install -r requirements.txt
+#
+#      - name: run tests
+#        run: python run.py -v
 jobs:
   test:
     runs-on: ubuntu-24.04
-    container: astral/uv:python3.12-bookworm-slim
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Python
+      - uses: actions/checkout@v4
+
+      - name: Set up Python (清除缓存 + 精确版本)
         uses: actions/setup-python@v5
         with:
-         Python-version: '3.10'
-      - name: Install independency
-        run: pip install -r requirements.txt
+          python-version: '3.10.19'
+          cache: 'pip'  # 仅缓存pip包，不缓存Python本体
+          check-latest: true  # 强制检查最新版本，跳过本地缓存
 
-      - name: run tests
-        run: python run.py -v
-
+      # 关键：验证Python和GLIBC依赖（排查问题）
+      - name: Debug Python & GLIBC
+        run: |
+          # 查看系统GLIBC版本（确认ubuntu24.04的版本）
+          ldd --version | head -1
+      
+          which python
+          ldd $(which python) | grep libc.so.6
+          
+          python --version
 
