@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     container: astral/uv:python3.12-bookworm-slim
     steps:
       - name: Checkout
